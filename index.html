@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #f5e4d3, #f3c9dd, #ffb6c1);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff3b3b;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .yes {
+            background-color: #4CAF50;
+        }
+
+        .no {
+            background-color: #f44336;
+        }
+
+        /* Glowing Button Effect */
+        .button:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* Sparkles Following Mouse */
+        .sparkles {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 0, 0, 0.5);
+            border-radius: 50%;
+            animation: sparkleAnimation 1s ease-out forwards;
+        }
+
+        @keyframes sparkleAnimation {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Hovering Heart Animation */
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: heartPulse 0.8s infinite ease-in-out;
+        }
+
+        @keyframes heartPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Dancing Teddy Bear Animation */
+        .teddy {
+            display: none;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: teddyDance 4s infinite;
+        }
+
+        .teddy .bear-body {
+            width: 50px;
+            height: 50px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            position: relative;
+            animation: teddyWiggle 0.5s ease-in-out infinite;
+        }
+
+        .teddy .heart {
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 24px;
+        }
+
+        /* Success Message */
+        .message {
+            display: none;
+            font-size: 30px;
+            font-weight: bold;
+            color: red;
+            margin-top: 20px;
+            animation: messageFade 2s ease-in-out;
+        }
+
+        @keyframes messageFade {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Heart Explosion (flying hearts) */
+        .heart-explosion {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-explosion .heart {
+            font-size: 25px;
+            color: #ff007f;
+            position: absolute;
+            animation: heartFlyingAnimation 4s ease-in-out forwards;
+        }
+
+        @keyframes heartFlyingAnimation {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+                left: 50%;
+                top: 50%;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+                left: random(0, 100vw);  /* Generate random position */
+                top: random(0, 100vh);
+                animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Success message (appears when "Yes" is clicked) -->
+    <div class="message">Yessssss, lesgoooooo, he said yes!</div>
+
+    <!-- Do you love me box -->
+    <div class="container">
+        <h1>Do You Love Me?</h1>
+        <p>Click one of the buttons below to answer:</p>
+
+        <!-- Teddy bear gif -->
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute animated illustration" style="max-width: 200px;">
+
+        <div class="buttons">
+            <button class="button yes" onclick="showYesResponse()">Yes, I do!</button>
+            <button class="button no" onmouseover="moveButton()" onclick="alert('Oh no! 😢')">No, I don't.</button>
+        </div>
+    </div>
+
+    <!-- Cute dancing teddy bear -->
+    <div class="teddy">
+        <div class="bear-body"></div>
+        <div class="heart">❤️</div>
+    </div>
+
+    <!-- Heart explosion container -->
+    <div class="heart-explosion"></div>
+
+    <!-- Script for Sparkles, Heart Explosion, and Button Glows -->
+    <script>
+        // Sparkles Following the Mouse
+        document.addEventListener('mousemove', (e) => {
+            const sparkles = document.createElement('div');
+            sparkles.classList.add('sparkles');
+            document.body.appendChild(sparkles);
+            sparkles.style.left = `${e.pageX}px`;
+            sparkles.style.top = `${e.pageY}px`;
+
+            setTimeout(() => {
+                sparkles.remove();
+            }, 1000);
+        });
+
+        // Move "No" button when hovered over
+        function moveButton() {
+            var noButton = document.querySelector('.no');
+            var randomX = Math.floor(Math.random() * (window.innerWidth - noButton.offsetWidth));
+            var randomY = Math.floor(Math.random() * (window.innerHeight - noButton.offsetHeight));
+            noButton.style.position = 'absolute';
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+
+        // Show "Yes" response and Dancing Teddy Bear
+        function showYesResponse() {
+            // Hide the teddy bear gif and the "Do You Love Me?" container
+            document.querySelector('img[src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif"]').style.display = 'none';
+            document.querySelector('.container').style.display = 'none';
+
+            // Show the dancing teddy bear and success message
+            document.querySelector('.teddy').style.display = 'block';
+            document.querySelector('.message').style.display = 'block';
+
+            // Heart explosion (flying hearts)
+            for (let i = 0; i < 150; i++) {
+                createHeartExplosion();
+            }
+        }
+
+        // Function to create heart explosion effect
+        function createHeartExplosion() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            document.querySelector('.heart-explosion').appendChild(heart);
+
+            // Generate random positions and movement directions for hearts
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            const randomRotation = Math.random() * 360;
+
+            // Apply initial styles to hearts
+            heart.style.left = `${randomX}px`;
+            heart.style.top = `${randomY}px`;
+            heart.style.transform = `rotate(${randomRotation}deg)`;
+
+            // Animation duration and movement
+            const duration = Math.random() * 2 + 2; // Random duration between 2 and 4 seconds
+            heart.style.animation = `heartFlyingAnimation ${duration}s ease-in-out forwards`;
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000); // Remove after animation ends
+        }
+    </script>
+
+</body>
+</html>
